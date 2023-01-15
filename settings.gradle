@@ -1,0 +1,4 @@
+rootProject.name = 'project-pass'
+
+include ':application:frontend'
+include ':application:server'

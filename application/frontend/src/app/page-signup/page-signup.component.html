@@ -1,0 +1,48 @@
+<div fxFlex fxLayout="column" style="min-height: 100vh" fxLayoutAlign="center center">
+  <div fxLayout="row" fxLayoutAlign="center center" style="min-height: 100vh">
+    <mat-card>
+      <mat-card-title>Rejestracja konta</mat-card-title>
+      <mat-card-content>
+        <form [formGroup]="signupForm" (ngSubmit)="onSignupSubmit()">
+          <div fxLayout="column">
+            <mat-form-field>
+              <mat-label>Name</mat-label>
+              <input matInput formControlName="name">
+              <mat-error *ngIf="signupForm.hasError('required', 'name')">Pole wymagane</mat-error>
+              <mat-error *ngIf="signupForm.hasError('pattern', 'name')">Imie nie powinno zawierać cyfr i znakow specjalnych</mat-error>
+              </mat-form-field>
+            <mat-form-field>
+              <mat-label>Second Name</mat-label>
+              <input matInput formControlName="secondName">
+              <mat-error *ngIf="signupForm.hasError('required', 'secondName')">Pole wymagane</mat-error>
+              <mat-error *ngIf="signupForm.hasError('pattern', 'secondName')">Nazwisko nie powinno zawierać cyfr i znakow specjalnych</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Login</mat-label>
+              <input matInput formControlName="username">
+              <mat-error *ngIf="signupForm.hasError('required', 'username')">Pole wymagane</mat-error>
+              <mat-error *ngIf="signupForm.hasError('minlength', 'username')">Zbyt krótka nazwa (minimum 4 znaki)</mat-error>
+              <mat-error *ngIf="signupForm.hasError('maxlength', 'username')">Zbyt długa nazwa (maksymalnie 30 znaków)</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Hasło</mat-label>
+              <input type="password" matInput formControlName="password">
+              <mat-error *ngIf="signupForm.hasError('required', 'password')">Pole wymagane</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Powtórz hasło</mat-label>
+              <input type="password" matInput formControlName="confirmPassword">
+              <mat-error *ngIf="signupForm.hasError('required', 'confirmPassword')">Pole wymagane</mat-error>
+              <mat-error *ngIf="signupForm.hasError('fieldValueNotTheSame', 'confirmPassword')">Hasła różnią się</mat-error>
+            </mat-form-field>
+            <div fxLayout="row-reverse" fxLayoutAlign="space-between center">
+              <button type="submit" [disabled]="signupForm.invalid || signupInProgress" mat-raised-button color="primary" style="padding: 0 5px">
+                Załóż konto
+              </button>
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

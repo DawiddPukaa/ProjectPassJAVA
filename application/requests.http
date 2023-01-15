@@ -1,0 +1,20 @@
+###
+
+POST http://localhost:8080/authentication/signup
+Content-Type: application/json
+Accept: application/json
+
+{
+  "username": "janusz",
+  "password": "siemanko"
+}
+
+> {%
+client.global.set("auth_token", response.body.json.token);
+%}
+
+###
+
+GET http://localhost:8080/api/posts
+Authorization: token {{auth_token}}
+Accept: application/json

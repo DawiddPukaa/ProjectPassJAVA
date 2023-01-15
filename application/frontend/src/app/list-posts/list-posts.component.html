@@ -1,0 +1,13 @@
+<div>
+  <mat-card *ngFor="let post of posts" style="margin: 15px">
+    <mat-card-title routerLink="/posts/{{post.id}}">{{post.subject}}</mat-card-title>
+    <mat-card-content>
+      <p style="white-space: pre-line;">{{post.content}}</p>
+    </mat-card-content>
+    <mat-card-footer>
+      <p style="padding: 15px;">
+        Dodane {{post.postedOn}} przez {{post.postedBy}}. Liczba komentarzy: {{post.numberOfComments}}.
+      </p>
+    </mat-card-footer>
+  </mat-card>
+</div>

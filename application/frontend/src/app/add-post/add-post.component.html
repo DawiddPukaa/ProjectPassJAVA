@@ -1,0 +1,24 @@
+<mat-card>
+  <mat-card-title>Nowy wpis</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="addPostForm" (ngSubmit)="onPublishClicked()">
+      <div fxLayout="column">
+        <mat-form-field>
+          <mat-label>Tytuł</mat-label>
+          <input matInput formControlName="subject">
+          <mat-error *ngIf="addPostForm.hasError('required', 'subject')">Pole wymagane</mat-error>
+        </mat-form-field>
+        <mat-form-field #contentTextArea>
+          <mat-label>Treść</mat-label>
+          <textarea [rows]="16" matInput formControlName="content"></textarea>
+          <mat-error *ngIf="addPostForm.hasError('required', 'content')">Pole wymagane</mat-error>
+        </mat-form-field>
+        <div fxLayout="row-reverse">
+          <button type="submit" mat-raised-button color="primary" style="padding: 0 5px"
+                  [disabled]="publishingInProgress || addPostForm.invalid">Opublikuj
+          </button>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,65 @@
+<mat-sidenav-container class="navigation-container">
+  <mat-sidenav #sidenav fixedBottomGap="true" fixedInViewport="true"
+               fixedTopGap="true" mode="over"
+               opened="false"
+               role="navigation">
+    <mat-nav-list>
+      <mat-list-item>
+        <a mat-list-item
+           routerLink="posts" (click)="sidenav.close()">
+          <mat-icon class="nav-list-icon" matListIcon>library_books</mat-icon>
+          Przeglądaj wpisy
+        </a>
+      </mat-list-item>
+
+      <mat-list-item>
+        <a mat-list-item
+           routerLink="posts/add" (click)="sidenav.close()">
+          <mat-icon class="nav-list-icon" matListIcon>library_add</mat-icon>
+          Dodaj nowy wpis
+        </a>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </mat-nav-list>
+
+  </mat-sidenav>
+
+  <mat-sidenav-content role="main" style="min-height: 100vh;">
+    <div fxFlex fxLayout="column">
+      <div>
+        <mat-toolbar color="primary">
+          <div fxFlex  fxLayout="row">
+            <div fxFlex fxLayout="row" fxLayoutAlign="start center">
+              <button (click)="sidenav.open()" aria-label="Example icon-button with menu icon" class="example-icon"
+                      mat-icon-button>
+                <mat-icon>menu</mat-icon>
+              </button>
+              <span>Autorem Bloga jest Dawid Puka</span>
+            </div>
+
+            <div fxFlex fxLayout="row" fxLayoutAlign="end center">
+              <button mat-icon-button [matMenuTriggerFor]="userAccountDetailsMenu">
+                <mat-icon>account_circle</mat-icon>
+              </button>
+              <mat-menu #userAccountDetailsMenu>
+                <button mat-menu-item (click)="onLogoutClicked()">
+                  <mat-icon>logout</mat-icon>
+                  <span>Wyloguj się</span>
+                </button>
+              </mat-menu>
+            </div>
+          </div>
+        </mat-toolbar>
+      </div>
+
+      <div fxFlex fxFlexFill>
+        <router-outlet></router-outlet>
+      </div>
+
+      <div>
+        <mat-toolbar></mat-toolbar>
+      </div>
+
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

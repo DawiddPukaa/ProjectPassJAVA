@@ -1,0 +1,24 @@
+logging:
+  level:
+    org.zalando.logbook.Logbook: TRACE
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type: TRACE
+
+logbook:
+  format.style: http
+  obfuscate:
+    headers:
+      - Authorization
+
+database:
+  location: ~/.blog-application-server
+
+spring:
+  datasource:
+    url: jdbc:h2:file:${database.location}/database.db;AUTO_SERVER=TRUE;MODE=HSQLDB
+    # username: db-user
+    # password: "some-secure-password"
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update

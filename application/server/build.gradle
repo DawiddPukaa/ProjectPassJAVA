@@ -1,0 +1,89 @@
+import static org.gradle.internal.os.OperatingSystem.current
+
+plugins {
+    id 'org.springframework.boot' version '2.4.5'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id 'groovy'
+    id 'org.beryx.runtime' version '1.12.4'
+}
+
+def platform = current().isWindows() ? 'win' : current().isLinux() ? 'linux' : 'mac'
+
+group = 'pl.kul'
+version = '1.0.0'
+sourceCompatibility = '15'
+
+springBoot {
+    mainClass = 'pl.kul.blog.infrastructure.launcher.SpringBootApplicationManagerLauncher'
+}
+
+application {
+    mainClass = springBoot.mainClass
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+tasks.jar.enabled = true
+
+runtime {
+    modules = ['java.security.jgss', 'java.desktop', 'java.management', 'java.instrument', 'java.sql', 'jdk.unsupported']
+
+    jpackage {
+        imageName = rootProject.name
+        skipInstaller = true
+    }
+}
+
+jpackage.dependsOn build
+
+dependencies {
+    implementation project(":application:frontend")
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.zalando:logbook-spring-boot-starter:2.5.0'
+
+    implementation group: 'org.openjfx', name: 'javafx-base', version: '16', classifier: platform
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: '16', classifier: platform
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: '16', classifier: platform
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: '16', classifier: platform
+    implementation group: 'org.openjfx', name: 'javafx-web', version: '16', classifier: platform
+    implementation group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.2.21'
+    implementation group: 'io.reactivex.rxjava2', name: 'rxjavafx', version: '2.11.0-RC31'
+    implementation 'io.reactivex:rxjavafx:2.0.2'
+
+    implementation 'org.codehaus.groovy:groovy:3.0.5'
+
+    compileOnly 'org.projectlombok:lombok'
+    runtimeOnly 'com.h2database:h2'
+
+    testCompileOnly 'org.projectlombok:lombok'
+    testRuntimeOnly 'com.h2database:h2'
+
+    annotationProcessor 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+
+    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    testImplementation('org.spockframework:spock-core:2.0-M3-groovy-3.0')
+    testImplementation('org.spockframework:spock-spring:2.0-M3-groovy-3.0')
+}
+
+test {
+    useJUnitPlatform()
+}

@@ -1,0 +1,50 @@
+<div *ngIf="loading" fxLayout="column" fxLayoutAlign="center center" style="min-height: 100%;">
+  <mat-spinner></mat-spinner>
+</div>
+
+<ng-container *ngIf="!loading">
+  <mat-card style="margin: 15px;">
+    <mat-card-title>{{post.subject}}</mat-card-title>
+    <mat-card-content>
+      <p style="white-space: pre-line;">{{post.content}}</p>
+    </mat-card-content>
+    <mat-card-footer>
+      <p style="padding: 15px;">
+        Dodane {{post.postedOn}} przez {{post.postedBy}}.
+      </p>
+    </mat-card-footer>
+  </mat-card>
+
+  <mat-card style="margin: 0 15px 15px 15px;">
+    <div>
+      <div class="mat-subheading-2">Komentarze:</div>
+      <div style="margin-top: 10px;" *ngFor="let comment of post.comments; last as isLast">
+        <div>
+          <div><span class="mat-title">{{comment.author}}</span>&nbsp;<span
+            class="mat-caption">{{comment.commentPostedTimeAgo}}</span></div>
+          <p>{{comment.content}}</p>
+        </div>
+        <mat-divider *ngIf="!isLast"></mat-divider>
+      </div>
+    </div>
+
+    <div style="margin: 0 15px 15px 15px">
+      <mat-divider></mat-divider>
+      <div class="mat-subheading-2">Dodaj komentarz:</div>
+      <form [formGroup]="addCommentForm" (ngSubmit)="onPublishCommentClicked()">
+        <div fxLayout="column">
+          <mat-form-field>
+            <mat-label>Treść</mat-label>
+            <textarea [rows]="8" matInput formControlName="commentContent"></textarea>
+            <mat-error *ngIf="addCommentForm.hasError('required', 'commentContent')">Pole wymagane</mat-error>
+          </mat-form-field>
+          <div fxLayout="row-reverse">
+            <button type="submit" mat-raised-button color="primary" style="padding: 0 5px"
+                    [disabled]="publishingCommentInProgress || addCommentForm.invalid">Opublikuj
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </mat-card>
+</ng-container>

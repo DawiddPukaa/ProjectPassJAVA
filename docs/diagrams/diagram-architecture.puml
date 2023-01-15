@@ -1,0 +1,50 @@
+@startuml
+
+' 1) Diagram komponentów
+' 2) Diagram architektury
+' 3) Diagram sekwencji zakładania konta użytkownika
+' 4) Diagram sekwencji uwierzytelniania użytkownika
+' 5) Diagram sekwencji autoryzacji (long live credentials => short live credentials & authorize)
+
+left to right direction
+
+actor "User" as user
+
+package "Przeglądarka internetowa" {
+    component "Frontend SPA application" as angular
+}
+
+cloud {
+    package "Server" {
+        interface HTTP as http
+        component "API Endpoint Handler" as endpoint
+        component "Domain Service" as domainService
+        component "Domain Object Repository" as repo
+
+        note right of domainService
+            Zawiera logikę domenową
+        end note
+
+        note right of endpoint
+            Obsługuje żądania HTTP wykonane przez klientów
+            Deleguje wywołanie logiki domenowej
+        end note
+
+        note right of repo
+            Warstwa persystencji danych
+        end note
+    }
+
+    database "Database" as db
+}
+
+
+user ---> angular
+angular ---> http
+http -l-> endpoint
+endpoint -l-> domainService
+domainService -l-> repo
+repo -l-> db
+
+
+@enduml

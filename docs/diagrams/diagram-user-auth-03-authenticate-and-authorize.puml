@@ -1,0 +1,36 @@
+@startuml
+
+' 1) Diagram komponentów
+' 2) Diagram architektury
+' 3) Diagram sekwencji zakładania konta użytkownika
+' 4) Diagram sekwencji uwierzytelniania użytkownika
+' 5) Diagram sekwencji autoryzacji (long live credentials => short live credentials & authorize)
+
+actor "User" as user
+participant "Frontend application" as frontendApp
+participant "Backend application" as backendApp
+
+== Wykorzystanie uzyskanego tokena do uwierzytelnienia i autoryzacji ==
+note over user
+Wejście na stronę główną i załadowanie
+kodu aplikacji web'owej do przeglądarki
+end note
+user -> backendApp : GET /
+activate user
+activate backendApp
+backendApp -> user : OK
+deactivate backendApp
+user -> frontendApp
+activate frontendApp
+frontendApp -> backendApp : GET /api/posts\n\nAccept: application/json\nAuthorization: token XYZ
+activate backendApp
+backendApp -> backendApp : Weryfikacja tokena
+backendApp -> backendApp : Weryfikacja uprawnień
+backendApp -> backendApp : Wyciągnięcie wpisów bloga
+backendApp -> frontendApp : OK 200\n\nContent-Type: application/json\n\n{\n    // ...\n}
+deactivate backendApp
+frontendApp -> user : Prezentacja listy wpisów
+deactivate frontendApp
+deactivate user
+
+@enduml
