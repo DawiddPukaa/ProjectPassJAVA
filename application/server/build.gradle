@@ -12,7 +12,7 @@ def platform = current().isWindows() ? 'win' : current().isLinux() ? 'linux' : '
 
 group = 'pl.kul'
 version = '1.0.0'
-sourceCompatibility = '15'
+sourceCompatibility = '17'
 
 springBoot {
     mainClass = 'pl.kul.blog.infrastructure.launcher.SpringBootApplicationManagerLauncher'
