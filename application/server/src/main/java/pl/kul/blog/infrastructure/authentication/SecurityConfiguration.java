@@ -35,6 +35,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/**").hasRole("REGULAR")
                 .antMatchers("/authentication/signup").permitAll()
                 .antMatchers("/authentication/signin").permitAll()
+                .antMatchers("/upload").permitAll()
             )
             .csrf(AbstractHttpConfigurer::disable)
             .httpBasic(AbstractHttpConfigurer::disable)
