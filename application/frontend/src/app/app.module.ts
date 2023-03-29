@@ -30,6 +30,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {AuthenticationRelatedErrorHandlingInterceptor} from './services/authentication/authentication-related-error-handling.interceptor';
 import {AuthenticationTokenInterceptor} from './services/authentication/authentication-token.interceptor';
 import { PagePostDetailsComponent } from './page-post-details/page-post-details.component';
+import {UploadFilesComponent} from './upload-files/upload-files.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { PagePostDetailsComponent } from './page-post-details/page-post-details.
     PageLoginComponent,
     MainComponent,
     PageSignupComponent,
-    PagePostDetailsComponent
+    PagePostDetailsComponent,
+    UploadFilesComponent
   ],
   imports: [
     BrowserModule,
