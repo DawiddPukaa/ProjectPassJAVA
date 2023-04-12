@@ -7,10 +7,12 @@ import {MainComponent} from './main/main.component';
 import {PageSignupComponent} from './page-signup/page-signup.component';
 import {EnsureAuthenticatedGuard} from './services/authentication/ensure-authenticated.guard';
 import {PagePostDetailsComponent} from './page-post-details/page-post-details.component';
+import {UploadFilesComponent} from "./upload-files/upload-files.component";
 
 const routes: Routes = [
   {path: 'login', component: PageLoginComponent},
   {path: 'signup', component: PageSignupComponent},
+  {path: 'upload', component: UploadFilesComponent},
   {path: '', component: MainComponent, canActivate: [EnsureAuthenticatedGuard],
     children: [
       {path: 'posts/add', component: AddPostComponent},
