@@ -1,7 +1,5 @@
 package pl.kul.blog.uploadfilesmodule;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 
 @Entity
@@ -9,9 +7,8 @@ import javax.persistence.*;
 public class FileDB {
 //
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
 
     private String name;
 
@@ -29,7 +26,7 @@ public class FileDB {
         this.data = data;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
