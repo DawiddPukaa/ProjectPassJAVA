@@ -23,6 +23,7 @@ application {
 }
 
 configurations {
+    all*.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
     compileOnly {
         extendsFrom annotationProcessor
     }
@@ -66,6 +67,11 @@ dependencies {
     implementation 'io.reactivex:rxjavafx:2.0.2'
 
     implementation 'org.codehaus.groovy:groovy:3.0.5'
+
+    implementation("org.springframework.boot:spring-boot-starter-log4j2")
+    implementation 'org.apache.logging.log4j:log4j-core:2.14.1'
+    implementation 'commons-collections:commons-collections:3.2.1'
+
 
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
